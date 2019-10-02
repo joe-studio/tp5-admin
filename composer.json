@@ -1,0 +1,34 @@
+{
+    "name": "joe-studio/tp5-admin",
+    "description": "基于TP5.024版本的管理后台admin模块",
+    "keywords": ["thinkphp","admin","extension"],
+    "type": "tp5-extension",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "JoeStudio",
+            "email": "wstudio888@gmail.com"
+        }
+    ],
+    "require": {
+        "topthink/framework": "v5.0.24",
+        "dh2y/think-crypt":"*",
+        "topthink/think-captcha": "dev-master"
+    },
+
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "think\\": "library/think",
+            "joeStudio\\admin\\": "src/",
+            "joeStudio\\admin\\logic\\": "src/logic/",
+            "joeStudio\\admin\\helper\\": "src/helper/",
+            "joeStudio\\admin\\controller\\": "src/controller/",
+            "joeStudio\\admin\\model\\": "src/model/",
+            "joeStudio\\admin\\validate\\": "src/validate/",
+            "joeStudio\\admin\\config\\": "src/config/",
+            "joeStudio\\admin\\view\\": "src/view/",
+            "joeStudio\\admin\\behavior\\": "src/behavior/"
+        }
+    }
+}
