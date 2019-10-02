@@ -75,6 +75,7 @@ class Login extends Controller
 
     public function home()
     {
+        
 
         $url = url('admin/login/logout');
 
