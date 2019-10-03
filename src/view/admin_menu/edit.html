@@ -1,0 +1,102 @@
+{include file="public/header" /}
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>新增菜单</h5>
+                    <a href="{:url('admin/adminmenu/show')}" class="joe-back" style="float: right">返回上一页</a>
+                </div>
+                <div class="ibox-content">
+                    <form action="{:url('admin/adminmenu/update')}" method="post" id="myForm" data-scene="update" class="form-horizontal">
+
+                        <input type="hidden" name="menu_id" value="{$menu.menu_id}" />
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">菜单名</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="menu_name" value="{$menu.menu_name}">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">分组</label>
+
+                            <div class="col-sm-10">
+                                <select class="form-control m-b" name="category_id">
+                                    {volist name="categoryList" id="category"}
+                                    <option {if condition="$category.category_id == $menu.category_id"}selected=""{/if} value="{$category.category_id}">{$category.category_name}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">上级菜单</label>
+
+                            <div class="col-sm-10">
+                                <select class="form-control m-b" name="parent_id">
+                                    <option value="0">顶级菜单</option>
+                                    {volist name="menuList" id="item"}
+                                    <option {if condition="$item.menu_id == $menu.parent_id"}selected=""{/if} value="{$item.menu_id}">{$item.menu_name}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">描述</label>
+
+                            <div class="col-sm-10">
+                                <textarea class="form-control" name="menu_decription" >{$menu.menu_decription}</textarea>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">路由</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="menu_path" placeholder="module/controller/action" value="{$menu.menu_path}">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">排序</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="menu_sort" placeholder="0"  value="{$menu.menu_sort}">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" >是否启用</label>
+
+                            <div class="col-sm-10">
+                                <div class="checkbox i-checks">
+                                    <input type="checkbox" name="menu_status"  {if condition="$menu.menu_status"}checked=""{/if}>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">保存</button>
+                                <a href="javascript:void(0)" class="btn btn-white joe-refresh">重置</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="public/footer" /}

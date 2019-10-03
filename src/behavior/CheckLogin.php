@@ -17,7 +17,7 @@ class CheckLogin extends Controller
         if($dispatch['method'][0] == "\joeStudio\admin\controller\Login"){
 
             if($dispatch['method'][1] == 'index' || $dispatch['method'][1] == 'register'){
-                ( new Login() )->checkLogin() && $this->success('已登录',url('admin/login/home'));
+                ( new Login() )->checkLogin() && $this->success('已登录',url('admin/index/index'));
             }
 
         }else{

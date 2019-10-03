@@ -3,7 +3,7 @@ namespace joeStudio\admin\validate;
 
 use think\Validate;
 
-class Admin extends Validate
+class AdminAdmin extends Validate
 {
     protected $output;
 
@@ -38,7 +38,7 @@ class Admin extends Validate
 
         //按照登录场景来区分
         $map['user_name'] = $value;
-        $member = db('admin')->where($map)->find();
+        $member = db('adminAdmin')->where($map)->find();
         if ( $member){
 
             return '用户名已经存在!';
@@ -49,7 +49,7 @@ class Admin extends Validate
     }
 
     protected  function checkAdmin($value){
-        $admin = db('admin')->where([
+        $admin = db('adminAdmin')->where([
             'user_name' =>  $value
         ])->find();
 

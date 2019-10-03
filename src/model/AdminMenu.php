@@ -4,10 +4,12 @@
 namespace joeStudio\admin\model;
 
 
+use joeStudio\admin\helper\LoginHelper;
+use joeStudio\admin\logic\Login;
 use think\Model;
 use traits\model\SoftDelete;
 
-class Admin extends Model
+class AdminMenu extends Model
 {
     use SoftDelete;
 
@@ -15,4 +17,6 @@ class Admin extends Model
 
     protected $pk = 'admin_id';
     protected $delete_time = "delete_time";
+
+
 }

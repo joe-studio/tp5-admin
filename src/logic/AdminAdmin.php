@@ -9,20 +9,12 @@
 namespace joeStudio\admin\logic;
 
 use filter\Output;
-use think\Session;
-use joeStudio\admin\helper\LoginHelper;
 
-class Login extends Output
+class AdminAdmin extends Output
 {
-    protected $config = [
-        'crypt' => 'wstudio',      //Crypt加密秘钥
-        'auth_uid' => 'authId',      //用户认证识别号(必配)
-    ];
 
     public function __construct(){
 
-        $this->model = new \joeStudio\admin\model\AdminAdmin();
-        $this->validate = new \joeStudio\admin\validate\AdminAdmin();
     }
 
     public function doLogin($data){
@@ -107,7 +99,7 @@ class Login extends Output
             $this->scene('form');
 
             $res ? $this->setStatus(true)->setMsg('注册成功') : $this->setStatus(false)->setMsg('插入数据失败');
-            $this->output();
+
         }
     }
 

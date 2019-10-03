@@ -1,0 +1,88 @@
+{include file="public/header" /}
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>筛选条件</h5>
+                </div>
+                <div class="ibox-content">
+                    <form action="{:url('admin/adminmenucategory/show')}" method="get" class="form-horizontal">
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">分类名</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="category_name" value="{$Request.get.category_name}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">每页</label>
+
+                            <div class="col-sm-10">
+                                <select class="form-control m-b" name="rows" value="{$Request.get.rows}">
+                                    <option {if condition="$Request.get.rows == 10"}selected=""{/if} value="10">10 条记录</option>
+                                    <option {if condition="$Request.get.rows == 20"}selected=""{/if} value="20">20 条记录</option>
+                                    <option {if condition="$Request.get.rows == 30"}selected=""{/if} value="20">30 条记录</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">保存</button>
+                                <a href="{:url('admin/adminmenucategory/show')}" class="btn btn-white joe-refresh">重置</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>菜单分类列表</h5>
+
+                </div>
+                <div class="ibox-content">
+                    <div class="">
+                        <a href="{:url('admin/adminmenucategory/add')}" class="btn btn-primary" style="float: right;margin-bottom:20px">添加菜单分类</a>
+                    </div>
+
+                    <table class="table table-striped table-bordered table-hover " id="editable">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>菜单分类名</th>
+                            <th>菜单描述</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {volist name='categoryList' id='category'}
+                        <tr class="gradeA">
+                            <td>{$category.category_id}</td>
+                            <td>{$category.category_name}</td>
+                            <td>{$category.category_decription}</td>
+                            <td class="center">
+                                <a href="{:url('admin/adminmenucategory/edit',['category_id'=>$category.category_id])}">编辑</a>
+                                <a href="{:url('categorydelete',['category_id'=>$category.category_id])}">删除</a>
+                            </td>
+                        </tr>
+                        {/volist}
+
+                        </tbody>
+
+                    </table>
+                    {$page}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="public/footer" /}
