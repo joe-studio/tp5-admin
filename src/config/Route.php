@@ -23,19 +23,20 @@ class Route
             //管理员控制器路由
             'AdminAdmin/add'                =>  ['\joeStudio\admin\controller\AdminAdmin@add',['method'=>'get']],
 
-            //管理员菜单控制器路由
-            'AdminMenuCategory/add'         =>  ['\joeStudio\admin\controller\AdminMenuCategory@add',['method'=>'get']],
-            'AdminMenuCategory/insert'      =>  ['\joeStudio\admin\controller\AdminMenuCategory@insert',['method'=>'post']],
-            'AdminMenuCategory/show'        =>  ['\joeStudio\admin\controller\AdminMenuCategory@show',['method'=>'get']],
-            'AdminMenuCategory/edit'        =>  ['\joeStudio\admin\controller\AdminMenuCategory@edit',['method'=>'get']],
-            'AdminMenuCategory/update'        =>  ['\joeStudio\admin\controller\AdminMenuCategory@update',['method'=>'post']],
+            //管理员菜单分组控制器路由
+            'AdminMenuCategory/add'         =>  ['\joeStudio\admin\controller\AdminMenuCategory@categoryAdd',['method'=>'get']],
+            'AdminMenuCategory/insert'      =>  ['\joeStudio\admin\controller\AdminMenuCategory@categoryInsert',['method'=>'post']],
+            'AdminMenuCategory/show'        =>  ['\joeStudio\admin\controller\AdminMenuCategory@categoryShow',['method'=>'get']],
+            'AdminMenuCategory/edit'        =>  ['\joeStudio\admin\controller\AdminMenuCategory@categoryEdit',['method'=>'get']],
+            'AdminMenuCategory/update'      =>  ['\joeStudio\admin\controller\AdminMenuCategory@categoryUpdate',['method'=>'post']],
 
             //管理员菜单控制器路由
-            'AdminMenu/add'         =>  ['\joeStudio\admin\controller\AdminMenu@add',['method'=>'get']],
-            'AdminMenu/insert'      =>  ['\joeStudio\admin\controller\AdminMenu@insert',['method'=>'post']],
-            'AdminMenu/show'        =>  ['\joeStudio\admin\controller\AdminMenu@show',['method'=>'get']],
-            'AdminMenu/edit'        =>  ['\joeStudio\admin\controller\AdminMenu@edit',['method'=>'get']],
-            'AdminMenu/update'        =>  ['\joeStudio\admin\controller\AdminMenu@update',['method'=>'post']],
+            'AdminMenu/add'                 =>  ['\joeStudio\admin\controller\AdminMenu@menuAdd',['method'=>'get']],
+            'AdminMenu/insert'              =>  ['\joeStudio\admin\controller\AdminMenu@menuInsert',['method'=>'post']],
+            'AdminMenu/show'                =>  ['\joeStudio\admin\controller\AdminMenu@menuShow',['method'=>'get']],
+            'AdminMenu/edit'                =>  ['\joeStudio\admin\controller\AdminMenu@menuEdit',['method'=>'get']],
+            'AdminMenu/update'              =>  ['\joeStudio\admin\controller\AdminMenu@menuUpdate',['method'=>'post']],
+            'AdminMenu/trueDel'             =>  ['\joeStudio\admin\controller\AdminMenu@menuTrueDel',['method'=>'post']],
         ]
 
     ];

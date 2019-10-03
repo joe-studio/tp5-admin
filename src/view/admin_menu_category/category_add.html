@@ -5,19 +5,17 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>编辑菜单分类</h5>
-                    <a href="{:url('admin/adminmenucategory/show')}" class="joe-back" style="float: right">返回上一页</a>
+                    <h5>新增菜单分类</h5>
+                    <a href="javascript:void(0)" onclick="history.back(-1)" style="float: right">返回上一页</a>
                 </div>
                 <div class="ibox-content">
-                    <form action="{:url('admin/adminmenucategory/update')}" method="post" id="myForm" data-scene="update" class="form-horizontal">
-
-                        <input type="hidden" name="category_id" value="{$category.category_id}" />
+                    <form action="{:url('admin/adminmenucategory/insert')}" method="post" id="myForm" data-scene="insert" class="form-horizontal">
 
                         <div class="form-group">
                             <label class="col-sm-2 control-label">分类名</label>
 
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="category_name" value="{$category.category_name}">
+                                <input type="text" class="form-control" name="category_name">
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
@@ -26,10 +24,12 @@
                             <label class="col-sm-2 control-label">描述</label>
 
                             <div class="col-sm-10">
-                                <textarea class="form-control" name="category_decription" >{$category.category_decription}</textarea>
+                                <textarea class="form-control" name="category_decription"></textarea>
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
+
+
 
                         <div class="form-group">
                             <div class="col-sm-4 col-sm-offset-2">
@@ -45,18 +45,3 @@
 </div>
 {include file="public/footer" /}
 
-<script>
-    //重置表单
-    $('.joe-refresh').each(function(){
-        $(this).on('click',function(){
-            window.location.reload();
-        });
-    });
-
-    //返回上一页
-    $('.joe-back').each(function(){
-        $(this).on('click',function(){
-            window.history.back(-1);
-        });
-    });
-</script>

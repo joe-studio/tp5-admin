@@ -50,11 +50,7 @@ class Login extends Output
             session($this->config['auth_uid'], $admin['admin_id']);
             session("user_name", $admin['user_name']);
 
-            //登录日志更新
-            $update['last_login_time'] = time();
-            $update['login_ip'] = LoginHelper::get_client_ip(0,true);
-
-            $res = $this->model->save($update,['admin_id'=>$admin['admin_id']]);
+            $res = $this->model->save([],['admin_id'=>$admin['admin_id']]);
 
             $this->scene('form');
 
@@ -102,7 +98,7 @@ class Login extends Output
 
         if($result == true){
 
-            $res = $this->model->insertData($data);
+            $res = $this->model->save($data);
 
             $this->scene('form');
 

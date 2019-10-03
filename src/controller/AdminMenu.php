@@ -10,33 +10,37 @@ class AdminMenu extends Admin
 
     }
 
-    public function add()
+    public function menuAdd()
     {
         $params = $this->logic->getTemplateParamsAdd();
 
-        return $this->view->fetch('admin_menu/add',$params);
+        return $this->view->fetch('admin_menu/menu_add',$params);
     }
 
-    public function insert(){
+    public function menuInsert(){
         $this->logic->insert($this->input);
     }
 
-    public function show(){
+    public function menuShow(){
 
         $output = $this->logic->search($this->input);
 
-        return $this->view->fetch('admin_menu/show',$output);
+        return $this->view->fetch('admin_menu/menu_show',$output);
     }
 
-    public function edit()
+    public function menuEdit()
     {
 
         $output = $this->logic->getTemplateParamsEdit($this->input);
 
-        return $this->view->fetch('admin_menu/edit',$output);
+        return $this->view->fetch('admin_menu/menu_edit',$output);
     }
 
-    public function update(){
+    public function menuUpdate(){
         $this->logic->update($this->input);
+    }
+
+    public function menuTrueDel(){
+        $this->logic->trueDel($this->input);
     }
 }

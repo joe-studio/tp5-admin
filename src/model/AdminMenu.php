@@ -15,7 +15,7 @@ class AdminMenu extends Model
 
     protected $field = true;
 
-    protected $pk = 'admin_id';
+    protected $pk = 'menu_id';
     protected $delete_time = "delete_time";
 
 

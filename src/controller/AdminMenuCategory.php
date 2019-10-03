@@ -10,31 +10,31 @@ class AdminMenuCategory extends Admin
 
     }
 
-    public function add()
+    public function categoryAdd()
     {
-       return $this->view->fetch('admin_menu_category/add');
+       return $this->view->fetch('admin_menu_category/category_add');
     }
 
-    public function insert(){
+    public function categoryInsert(){
         $this->logic->insert($this->input);
     }
 
-    public function show(){
+    public function categoryShow(){
 
         $output = $this->logic->search($this->input);
 
-        return $this->view->fetch('admin_menu_category/show',$output);
+        return $this->view->fetch('admin_menu_category/category_show',$output);
     }
 
-    public function edit()
+    public function categoryEdit()
     {
 
         $output = $this->logic->getCategoryById($this->input['category_id']);
 
-        return $this->view->fetch('admin_menu_category/edit',$output);
+        return $this->view->fetch('admin_menu_category/category_edit',$output);
     }
 
-    public function update(){
+    public function categoryUpdate(){
         $this->logic->update($this->input);
     }
 }

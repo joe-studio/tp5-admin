@@ -59,24 +59,4 @@ class AdminAdmin extends Validate
         return true;
     }
 
-
-    public function _checkItem($_scene,$_key,$data){
-        if(array_key_exists($_scene,$this->scene)){
-            if(array_key_exists($_key,$this->scene[$_scene])){
-                $this->scene($_scene.'_'.$_key,[$_key=>$this->scene[$_scene][$_key]]);
-                $res = $this->scene($_scene.'_'.$_key)->check($data);
-
-                return $res ? ['status'=>true,'msg'=>'执行成功'] : ['status'=>false,'msg'=>$this->getError()];
-            }elseif(in_array($_key,$this->scene[$_scene])){
-                $this->scene($_scene.'_'.$_key,[$_key]);
-                $res = $this->scene($_scene.'_'.$_key)->check($data);
-
-                return $res ? ['status'=>true,'msg'=>'执行成功'] : ['status'=>false,'msg'=>$this->getError()];
-            }
-            return ['status'=>false,'msg'=>'不存在$_key'];
-        }
-
-        return ['status'=>false,'msg'=>'不存在$_scene'];
-    }
-
 }
