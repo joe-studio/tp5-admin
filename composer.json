@@ -13,7 +13,8 @@
     "require": {
         "topthink/framework": "v5.0.24",
         "dh2y/think-crypt":"*",
-        "topthink/think-captcha": "dev-master"
+        "topthink/think-captcha": "dev-master",
+        "joe-studio/tp5-admin": "v0.0.2"
     },
 
     "minimum-stability": "dev",

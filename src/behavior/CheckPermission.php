@@ -11,7 +11,7 @@ class CheckPermission extends Controller
     {
         $roleInfo = Request::instance()->routeInfo();
 
-        if(Session::get('admin_level')){
+        if(Session::get('admin_level') != 1){
             if($roleInfo['rule'][1] != 'Login' && $roleInfo['rule'][1] != 'Index'){
                 $permission = implode('/',$roleInfo['rule']);
 
