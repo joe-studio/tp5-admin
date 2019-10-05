@@ -1,0 +1,60 @@
+{include file="public/header" /}
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>绑定角色</h5>
+                    <a href="javascript:void(0)" onclick="history.back(-1)" style="float: right">返回上一页</a>
+                </div>
+                <div class="ibox-content">
+                    <form action="{:url('admin/adminadmin/adminRoleInsert')}" method="post" id="myForm" data-scene="insert" class="form-horizontal">
+
+                        <input type="hidden" name="admin_id" value="{$Request.param.admin_id}" />
+
+                        <div class="dd" id="nestable">
+
+                            <ol class="dd-list">
+                                {volist name='$adminRoleList' id='role'}
+                                <li class="dd-item">
+                                    <div class="dd-handle">{$role.role_name}
+                                            <input type="checkbox"  style="float:right;top:-8px"  name="role_ids[]" onclick="select_role" value="{$role.role_id}" {if condition="$role.is_bind"}checked="checked"{/if} />
+                                    </div>
+                                </li>
+                                {/volist}
+                            </ol>
+
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">保存</button>
+                                <a href="javascript:void(0)" class="btn btn-white joe-refresh">重置</a>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="public/footer" /}
+<script>
+
+function select_role(_this){
+
+    if(!$(_this).attr('checked')){
+        $(_this).prop('checked',true);
+        $(_this).attr('checked',true);
+
+    }else{
+        $(_this).prop('checked',false);
+        $(_this).attr('checked',false);
+    }
+
+}
+
+
+</script>

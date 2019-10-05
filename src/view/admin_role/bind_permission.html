@@ -1,0 +1,130 @@
+{include file="public/header" /}
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>绑定权限</h5>
+                    <a href="javascript:void(0)" onclick="history.back(-1)" style="float: right">返回上一页</a>
+                </div>
+                <div class="ibox-content">
+                    <form action="{:url('admin/adminrole/rolePermissionInsert')}" method="post" id="myForm" data-scene="insert" class="form-horizontal">
+
+                        <input type="hidden" name="role_id" value="{$Request.param.role_id}" />
+
+                        <div class="dd" id="nestable">
+                            <ol class="dd-list">
+                                {volist name='permissionCategoryList' id='category'}
+                                <li class="dd-item">
+                                    <div class="dd-handle">
+                                        <div onclick=" showPermission({$category.category_id})" style="display:inline-block"><span>-</span>&nbsp; {$category.category_name}</div>
+                                        <div style="float:right">
+                                            全选
+                                            <input type="checkbox" id="select_all_category_{$category.category_id}" onclick="select_all_permission(this,{$category.category_id})" />
+                                        </div>
+                                    </div>
+                                    <ol class="dd-list" id="category_{$category.category_id}">
+                                        {volist name='$category.permissionList' id='permission'}
+                                        <li class="dd-item">
+                                            <div class="dd-handle">{$permission.permission_name}
+                                                    <input type="checkbox"  style="float:right;top:-8px" onclick="select_permission(this,{$category.category_id})" name="permission_ids[]" value="{$permission.permission_id}" {if condition="$permission.is_bind"}checked="checked"{/if} />
+                                            </div>
+                                        </li>
+                                        {/volist}
+                                    </ol>
+                                </li>
+
+                                {/volist}
+                            </ol>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">保存</button>
+                                <a href="javascript:void(0)" class="btn btn-white joe-refresh">重置</a>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="public/footer" /}
+<script>
+function showPermission(category_id){
+    if($('#category_'+category_id).css('display') == 'none'){
+        $('#category_'+category_id).show();
+    }else{
+        $('#category_'+category_id).hide()
+    }
+}
+
+function select_all_permission(_this,category_id){console.log($(_this).attr('checked'))
+    if(!$(_this).attr('checked')){
+        $(_this).attr('checked',true);
+        $('#category_'+category_id).show();
+        $('#category_'+category_id+' input').each(function(){
+            $(this).prop('checked',true);
+            $(this).attr('checked',true);
+        });
+
+    }else{
+        $(_this).attr('checked',false);
+        $('#category_'+category_id+' input').each(function(){
+            $(this).prop('checked',false);
+            $(this).attr('checked',false);
+        });
+    }
+}
+
+function select_permission(_this,category_id){
+
+    if(!$(_this).attr('checked')){
+        $(_this).prop('checked',true);
+        $(_this).attr('checked',true);
+
+    }else{
+        $(_this).prop('checked',false);
+        $(_this).attr('checked',false);
+    }
+
+    var category_permission_length = $("#category_"+category_id).find("input").length;
+    var select_permission_length = $("#category_"+category_id).find("input[checked='checked']").length;
+
+    if(category_permission_length == select_permission_length){
+        $("#select_all_category_"+category_id).attr('checked',true)
+        $("#select_all_category_"+category_id).prop('checked',true)
+    }else{
+        $("#select_all_category_"+category_id).attr('checked',false)
+        $("#select_all_category_"+category_id).prop('checked',false)
+    }
+
+}
+
+function init_permission(category_id){console.log(category_id)
+    var category_permission_length = $("#category_"+category_id).find("input").length;
+    var select_permission_length = $("#category_"+category_id).find("input[checked='checked']").length;
+
+    console.log(category_permission_length)
+    console.log(select_permission_length)
+
+    if(category_permission_length == select_permission_length){
+        $("#select_all_category_"+category_id).attr('checked',true)
+        $("#select_all_category_"+category_id).prop('checked',true)
+    }else{
+        $("#select_all_category_"+category_id).attr('checked',false)
+        $("#select_all_category_"+category_id).prop('checked',false)
+    }
+}
+
+</script>
+
+<!--判断是否全选-->
+<script>
+    {volist name="permissionCategoryList" id="cate"}
+    init_permission({$cate.category_id});
+    {/volist}
+</script>

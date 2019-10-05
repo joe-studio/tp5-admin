@@ -15,7 +15,7 @@ class AdminAdmin extends Model
 
     protected $auto = ['login_ip','last_login_time'];
     protected $insert = ['create_time','update_time'];
-    protected $update = [];
+    protected $update = ['status'];
 
     protected $pk = 'admin_id';
     protected $delete_time = "delete_time";
@@ -38,5 +38,9 @@ class AdminAdmin extends Model
 
     protected function setUpdateTimeAttr(){
         return time();
+    }
+
+    protected function setStatusAttr($value){
+        return $value ? 1 : 0;
     }
 }

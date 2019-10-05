@@ -1,0 +1,56 @@
+{include file="public/header" /}
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>新增权限分组</h5>
+                    <a href="javascript:void(0)" onclick="history.back(-1)" style="float: right">返回上一页</a>
+                </div>
+                <div class="ibox-content">
+                    <form action="{:url('admin/adminpermissioncategory/update')}" method="post" id="myForm" data-scene="update" class="form-horizontal">
+
+                        <input type="hidden" name="category_id" value="{$category.category_id}" />
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">权限分组名</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="category_name" value="{$category.category_name}">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">描述</label>
+
+                            <div class="col-sm-10">
+                                <textarea class="form-control" name="category_decription" >{$category.category_decription}</textarea>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" >是否启用</label>
+
+                            <div class="col-sm-10">
+                                <div class="checkbox i-checks">
+                                    <input type="checkbox" name="category_status"  {if condition="$category.category_status"}checked=""{/if}>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">保存</button>
+                                <a href="javascript:void(0)" class="btn btn-white joe-refresh">重置</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="public/footer" /}

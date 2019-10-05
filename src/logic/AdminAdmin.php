@@ -9,12 +9,98 @@
 namespace joeStudio\admin\logic;
 
 use filter\Output;
+use joeStudio\admin\model\AdminAdminRole;
 
 class AdminAdmin extends Output
 {
 
     public function __construct(){
 
+    }
+
+    public function insert($data){
+
+        $res = $this->validate->scene('insert')->batch()->check($data);
+
+        if($res == false){
+
+            $this
+                ->scene('form')
+                ->setStatus(false)
+                ->setMsg($this->validate->getError())
+                ->output();
+        }
+
+        $res = $this->model->save($data);
+
+        $res ?
+            $this->scene('form')->setStatus(true)->setMsg('新增成功')->output()
+            :
+            $this->scene('form')->setStatus(false)->setMsg('插入数据失败')->output();
+    }
+
+    public function search($data){
+        //筛选条件
+        $map = [];
+        $rows = isset($data['rows']) ? $data['rows'] : 10;
+
+        isset($data['category_name']) && $map['category_name'] = ['like', "%{$data['category_name']}%"];
+        isset($data['status']) && $data['status'] ? $map['status']  = 0 : $map['status']  = 1;
+
+        //从数据库查询数据
+        $adminList = $this->model->where($map)->paginate($rows,false,['query'=>$data]);
+
+        //模板分页效果
+        $page = $adminList->render();
+
+        $output = [
+            'adminList' =>  $adminList,
+            'page'      =>  $page
+        ];
+
+        return $output;
+    }
+
+    public function update($data){
+
+        $res = $this->validate->scene('update')->batch()->check($data);
+
+        if($res == false){
+
+            $this
+                ->scene('form')
+                ->setStatus(false)
+                ->setMsg($this->validate->getError())
+                ->output();
+        }
+
+        $res = $this->model->save($data,['admin_id'=>$data['admin_id']]);
+
+        $res ?
+            $this->scene('form')->setStatus(true)->setMsg('编辑成功')->output()
+            :
+            $this->scene('form')->setStatus(false)->setMsg('更新数据失败')->output();
+    }
+
+    public function getAdminById($admin_id){
+        $admin = $this->model->where(['admin_id'=>$admin_id])->find();
+
+        $output = [
+            'admin'  =>  $admin
+        ];
+
+        return $output;
+    }
+
+    public function trueDel($data)
+    {
+
+        $res = $this->model->destroy($data['id'],TRUE);
+
+        $res ?
+            $this->scene('form')->setStatus(true)->setMsg('删除成功')->output()
+            :
+            $this->scene('form')->setStatus(false)->setMsg('删除失败')->output();
     }
 
     public function doLogin($data){
@@ -118,5 +204,80 @@ class AdminAdmin extends Output
 
         return Session::get($this->config['auth_uid'])?true:false;
 
+    }
+
+    public function bindAdminRole($data){
+        $insertData = [];
+
+        $adminRoleList_original = db('adminAdminRole')->where([
+            'admin_id'   =>  $data['admin_id']
+        ])->column('role_id');
+
+        $role_ids = isset($data['role_ids']) ? $data['role_ids'] : [];
+
+        if($role_ids){
+            foreach($role_ids as $key => $value){
+                $role_ids[$key] = (int)$value;
+            }
+        }
+
+        $role_ids_public = array_intersect($role_ids,$adminRoleList_original);
+
+        $role_ids_insert = array_diff($role_ids,$role_ids_public);
+
+        $role_ids_delete = array_diff($adminRoleList_original,$role_ids_public);
+
+        $res = false;
+
+        if($role_ids_insert){
+
+            foreach($role_ids_insert as $key => $value){
+                $insertData[$key]['admin_id'] = $data['admin_id'];
+                $insertData[$key]['role_id'] = $value;
+            }
+
+            $res = (new AdminAdminRole())->saveAll($insertData);
+        }
+
+        if($role_ids_delete){
+            foreach($role_ids_delete as $role_id){
+                $res = db('adminAdminRole')->where([
+                    'admin_id'       =>  $data['admin_id'],
+                    'role_id'    =>  $role_id
+                ])->delete();
+            }
+        }
+
+        $res ?
+            $this->scene('form')->setStatus(true)->setMsg('更新成功')->output()
+            :
+            $this->scene('form')->setStatus(false)->setMsg('更新失败')->setData($insertData)->output();
+    }
+
+    public function getTemplateParamsRole($data){
+        $adminRoleList = db('adminRole')->where([
+            'role_status' =>  1
+        ])->select();
+
+        if($adminRoleList){
+            foreach($adminRoleList as $k => $v){
+                $is_bind = db('adminAdminRole')->where([
+                    'admin_id'   =>  $data['admin_id'],
+                    'role_id' =>  $v['role_id']
+                ])->count();
+
+                if($is_bind > 0){
+                    $adminRoleList[$k]['is_bind'] = 1;
+                }else{
+                    $adminRoleList[$k]['is_bind'] = 0;
+                }
+            }
+        }
+
+        $output = [
+            'adminRoleList'   =>  $adminRoleList
+        ];
+
+        return $output;
     }
 }

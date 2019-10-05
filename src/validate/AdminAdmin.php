@@ -30,6 +30,8 @@ class AdminAdmin extends Validate
     protected $scene = [
         'login'     =>  ['user_name'=>'require|checkAdmin','password','verifycode'],
         'register'  =>  ['user_name','password','password_confirm','mobile'],
+        'insert'  =>  ['user_name','password','password_confirm','mobile'],
+        'update'  =>  ['user_name','password','password_confirm','mobile'],
     ];
 
     // 自定义验证规则

@@ -9,7 +9,7 @@ use joeStudio\admin\logic\Login;
 use think\Model;
 use traits\model\SoftDelete;
 
-class AdminMenu extends Model
+class AdminRole extends Model
 {
     use SoftDelete;
 
@@ -17,12 +17,13 @@ class AdminMenu extends Model
 
     protected $auto = [];
     protected $insert = [];
-    protected $update = ['menu_status'];
+    protected $update = ['role_status'];
 
-    protected $pk = 'menu_id';
+    protected $pk = 'role_id';
     protected $delete_time = "delete_time";
 
-    protected function setMenuStatusAttr($value){
+    protected function setRoleStatusAttr($value){
         return $value ? 1 : 0;
     }
+
 }

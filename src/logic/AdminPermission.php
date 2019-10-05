@@ -11,7 +11,7 @@ namespace joeStudio\admin\logic;
 use filter\Output;
 use joeStudio\admin\model\Admin;
 
-class AdminMenu extends Output
+class AdminPermission extends Output
 {
 
     public function __construct(){
@@ -44,39 +44,25 @@ class AdminMenu extends Output
         $map = [];
         $rows = isset($data['rows']) ? $data['rows'] : 10;
 
-        isset($data['menu_name'])   && $map['menu_name'] = ['like', "%{$data['menu_name']}%"];
+        isset($data['permission_name'])   && $map['permission_name'] = ['like', "%{$data['permission_name']}%"];
         isset($data['category_id']) && $map['category_id'] = $data['category_id'];
-        isset($data['parent_id'])   && isset($data['parent_id']) ? $map['parent_id'] = $data['parent_id'] : $map['parent_id'] = 0;
-        isset($data['menu_status']) && $data['menu_status'] ? $map['menu_status']  = 0 : $map['menu_status']  = 1;
+        isset($data['permission_status']) && $data['permission_status'] ? $map['permission_status']  = 0 : $map['permission_status']  = 1;
 
-        if(isset($data['all_menu']) && $data['all_menu'] == 1) unset($map['parent_id']);
+        if(isset($data['all_permission']) && $data['all_permission'] == 1) unset($map['parent_id']);
 
         //从数据库查询数据
-        $menuList = $this->model->where($map)->paginate($rows,false,['query'=>$data]);
+        $permissionList = $this->model->where($map)->paginate($rows,false,['query'=>$data]);
 
-        $categoryList = db('adminMenuCategory')->select();
-        $parentMenuList = $this->model->where([
-            'parent_id' =>  0
-        ])->select();
-
-        foreach($menuList as $key => $value){
-
-            $parentMenu = db('adminMenu')->where('menu_id',$value['parent_id'])->column('menu_name');
-
-            $menuList[$key]['parent_menu_name'] = $parentMenu ? $parentMenu[0] : '无';
-        }
+        $categoryList = db('adminPermissionCategory')->select();
 
         //模板分页效果
-        $page = $menuList->render();
+        $page = $permissionList->render();
 
         $output = [
-            'menuList'          =>  $menuList,
+            'permissionList'          =>  $permissionList,
             'page'              =>  $page,
             'categoryList'      =>  $categoryList,
-            'parentMenuList'    =>  $parentMenuList,
         ];
-
-        isset($map['parent_id']) && $output['parent_id'] = $map['parent_id'];
 
         return $output;
     }
@@ -94,7 +80,7 @@ class AdminMenu extends Output
                 ->output();
         }
 
-        $res = $this->model->save($data,['menu_id'=>$data['menu_id']]);
+        $res = $this->model->save($data,['permission_id'=>$data['permission_id']]);
 
         $res ?
             $this->scene('form')->setStatus(true)->setMsg('编辑成功')->output()
@@ -103,26 +89,30 @@ class AdminMenu extends Output
     }
 
     public function getTemplateParamsAdd(){
-        $categoryList = db('adminMenuCategory')->select();
-        $menuList = $this->model->select();
+        $categoryList = db('adminPermissionCategory')->where([
+            'category_status'   =>  1
+        ])->select();
+        $permissionList = $this->model->select();
 
         $output = [
             'categoryList'  =>  $categoryList,
-            'menuList'      =>  $menuList
+            'permissionList'      =>  $permissionList
         ];
 
         return $output;
     }
 
     public function getTemplateParamsEdit($data){
-        $categoryList = db('adminMenuCategory')->select();
-        $menuList = $this->model->select();
-        $menu = $this->model->where($data)->find();
+        $categoryList = db('adminPermissionCategory')->where([
+            'category_status'   =>  1
+        ])->select();
+        $permissionList = $this->model->select();
+        $permission = $this->model->where($data)->find();
 
         $output = [
             'categoryList'  =>  $categoryList,
-            'menuList'      =>  $menuList,
-            'menu'          =>  $menu
+            'permissionList'      =>  $permissionList,
+            'permission'          =>  $permission
         ];
 
         return $output;
