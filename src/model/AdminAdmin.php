@@ -15,7 +15,7 @@ class AdminAdmin extends Model
 
     protected $auto = ['login_ip','last_login_time'];
     protected $insert = ['create_time','update_time'];
-    protected $update = ['status'];
+    protected $update = [];
 
     protected $pk = 'admin_id';
     protected $delete_time = "delete_time";

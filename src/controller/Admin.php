@@ -21,6 +21,7 @@ class Admin extends Controller
     {
 
         Hook::listen('check_login');
+        Hook::listen('check_permission');
         Hook::listen('init_input',$this->input);
         Hook::listen('init_view',$this->view);
 //        Hook::listen('init_output',$this->output);

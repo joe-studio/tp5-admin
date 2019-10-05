@@ -49,6 +49,7 @@ class Login extends Output
             //账号密码验证正确，缓存登录信息
             session($this->config['auth_uid'], $admin['admin_id']);
             session("user_name", $admin['user_name']);
+            session("admin_level", $admin['admin_level']);
 
             $res = $this->model->save([],['admin_id'=>$admin['admin_id']]);
 

@@ -58,6 +58,11 @@ class AdminAdmin extends Validate
         if(!$admin){
             return '该用户不存在或者已被冻结';
         }
+
+        if($admin && $admin['status'] != 1){
+            return '该用户不存在或者已被冻结';
+        }
+
         return true;
     }
 
