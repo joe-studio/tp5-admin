@@ -13,7 +13,7 @@ class View
             'view_path'    => dirname(__FILE__) . '/../view/',
 
         ],[
-            '__URL__'    =>  'http://hplus.static.com/'
+            '__URL__'    =>  'http://static.wstudio.top/'
         ]);
     }
 }
